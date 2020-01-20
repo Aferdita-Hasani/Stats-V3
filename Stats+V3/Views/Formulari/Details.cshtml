@@ -1,0 +1,58 @@
+﻿@model Stats_V3.Formulari
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Formulari</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MungesaMeArsye)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MungesaMeArsye)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MungesaPaArsye)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MungesaPaArsye)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gjenerata.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gjenerata.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gjysmevjetori.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gjysmevjetori.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Shkolla.Emertimi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shkolla.Emertimi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7f325796691e47fd8a899321cba2b7a3" Name="Diagram1">
+        <EntityTypeShape EntityType="StatsV4Model.Formulari" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StatsV4Model.FormulariDetajet" Width="1.5" PointX="7.5" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StatsV4Model.Gjenerata" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StatsV4Model.Gjysmevjetori" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StatsV4Model.Lenda" Width="1.5" PointX="7.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StatsV4Model.Shkolla" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StatsV4Model.Suksesi" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StatsV4Model.SuksesiLendor" Width="1.5" PointX="9.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StatsV4Model.UserShkolla" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StatsV4Model.VitiShkollore" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="StatsV4Model.FK_Formulari_Gjenerata" ManuallyRouted="false" />
+        <AssociationConnector Association="StatsV4Model.FK_Formulari_Gjysmevjetori" ManuallyRouted="false" />
+        <AssociationConnector Association="StatsV4Model.FK_Formulari_Shkolla" ManuallyRouted="false" />
+        <AssociationConnector Association="StatsV4Model.FK_FormulariDetajet_Formulari" ManuallyRouted="false" />
+        <AssociationConnector Association="StatsV4Model.FK_SuksesiLendor_FormulariDetajet" ManuallyRouted="false" />
+        <AssociationConnector Association="StatsV4Model.FK_Gjenerata_Shkolla" ManuallyRouted="false" />
+        <AssociationConnector Association="StatsV4Model.FK_Gjysmevjetori_VitiShkollore" ManuallyRouted="false" />
+        <AssociationConnector Association="StatsV4Model.FK_SuksesiLendor_Lenda" ManuallyRouted="false" />
+        <AssociationConnector Association="StatsV4Model.FK_UserShkolla_Shkolla" ManuallyRouted="false" />
+        <AssociationConnector Association="StatsV4Model.FK_SuksesiLendor_Suksesi" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

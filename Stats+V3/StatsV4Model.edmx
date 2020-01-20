@@ -1,0 +1,687 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StatsV4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Formulari">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GjenerataId" Type="int" Nullable="false" />
+          <Property Name="GjysmevjetoriId" Type="int" Nullable="false" />
+          <Property Name="ShkollaId" Type="int" />
+          <Property Name="MungesaMeArsye" Type="int" />
+          <Property Name="MungesaPaArsye" Type="int" />
+        </EntityType>
+        <EntityType Name="FormulariDetajet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormulariId" Type="int" Nullable="false" />
+          <Property Name="OretEPlanifikuara" Type="int" />
+          <Property Name="OretEMbajtura" Type="int" />
+        </EntityType>
+        <EntityType Name="Gjenerata">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Paralelja" Type="int" Nullable="false" />
+          <Property Name="Klasa" Type="int" Nullable="false" />
+          <Property Name="VitiShkolloreId" Type="int" />
+          <Property Name="ShkollaId" Type="int" />
+        </EntityType>
+        <EntityType Name="Gjysmevjetori">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gjysmevjetori" Type="int" Nullable="false" />
+          <Property Name="VitiShkolloreId" Type="int" />
+        </EntityType>
+        <EntityType Name="Lenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emertimi" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Klasa" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shkolla">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emertimi" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Suksesi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emertimi" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SuksesiLendor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormulariDetajetId" Type="int" Nullable="false" />
+          <Property Name="LendaId" Type="int" Nullable="false" />
+          <Property Name="SuksesiId" Type="int" Nullable="false" />
+          <Property Name="NrNxenesveFemra" Type="int" Nullable="false" />
+          <Property Name="NrNxenesveMeshkuj" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserShkolla">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ShkollaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VitiShkollore">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VitiShkollor" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Formulari_Gjenerata">
+          <End Role="Gjenerata" Type="Self.Gjenerata" Multiplicity="1" />
+          <End Role="Formulari" Type="Self.Formulari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gjenerata">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Formulari">
+              <PropertyRef Name="GjenerataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Formulari_Gjysmevjetori">
+          <End Role="Gjysmevjetori" Type="Self.Gjysmevjetori" Multiplicity="1" />
+          <End Role="Formulari" Type="Self.Formulari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gjysmevjetori">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Formulari">
+              <PropertyRef Name="GjysmevjetoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Formulari_Shkolla">
+          <End Role="Shkolla" Type="Self.Shkolla" Multiplicity="0..1" />
+          <End Role="Formulari" Type="Self.Formulari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shkolla">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Formulari">
+              <PropertyRef Name="ShkollaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormulariDetajet_Formulari">
+          <End Role="Formulari" Type="Self.Formulari" Multiplicity="1" />
+          <End Role="FormulariDetajet" Type="Self.FormulariDetajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formulari">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FormulariDetajet">
+              <PropertyRef Name="FormulariId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gjenerata_Shkolla">
+          <End Role="Shkolla" Type="Self.Shkolla" Multiplicity="0..1" />
+          <End Role="Gjenerata" Type="Self.Gjenerata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shkolla">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gjenerata">
+              <PropertyRef Name="ShkollaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gjysmevjetori_VitiShkollore">
+          <End Role="VitiShkollore" Type="Self.VitiShkollore" Multiplicity="0..1" />
+          <End Role="Gjysmevjetori" Type="Self.Gjysmevjetori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VitiShkollore">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gjysmevjetori">
+              <PropertyRef Name="VitiShkolloreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuksesiLendor_FormulariDetajet">
+          <End Role="FormulariDetajet" Type="Self.FormulariDetajet" Multiplicity="1" />
+          <End Role="SuksesiLendor" Type="Self.SuksesiLendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormulariDetajet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuksesiLendor">
+              <PropertyRef Name="FormulariDetajetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuksesiLendor_Lenda">
+          <End Role="Lenda" Type="Self.Lenda" Multiplicity="1" />
+          <End Role="SuksesiLendor" Type="Self.SuksesiLendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lenda">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuksesiLendor">
+              <PropertyRef Name="LendaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuksesiLendor_Suksesi">
+          <End Role="Suksesi" Type="Self.Suksesi" Multiplicity="1" />
+          <End Role="SuksesiLendor" Type="Self.SuksesiLendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suksesi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuksesiLendor">
+              <PropertyRef Name="SuksesiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserShkolla_Shkolla">
+          <End Role="Shkolla" Type="Self.Shkolla" Multiplicity="1" />
+          <End Role="UserShkolla" Type="Self.UserShkolla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shkolla">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserShkolla">
+              <PropertyRef Name="ShkollaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="usp_Formulari_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="prmGjenerataId" Type="int" Mode="In" />
+          <Parameter Name="prmGjysmevjetoriId" Type="int" Mode="In" />
+          <Parameter Name="prmMungesaPaArsye" Type="int" Mode="In" />
+          <Parameter Name="prmMungesaMeArsye" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="StatsV4ModelStoreContainer">
+          <EntitySet Name="Formulari" EntityType="Self.Formulari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormulariDetajet" EntityType="Self.FormulariDetajet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gjenerata" EntityType="Self.Gjenerata" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gjysmevjetori" EntityType="Self.Gjysmevjetori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lenda" EntityType="Self.Lenda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shkolla" EntityType="Self.Shkolla" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suksesi" EntityType="Self.Suksesi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuksesiLendor" EntityType="Self.SuksesiLendor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserShkolla" EntityType="Self.UserShkolla" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VitiShkollore" EntityType="Self.VitiShkollore" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Formulari_Gjenerata" Association="Self.FK_Formulari_Gjenerata">
+            <End Role="Gjenerata" EntitySet="Gjenerata" />
+            <End Role="Formulari" EntitySet="Formulari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Formulari_Gjysmevjetori" Association="Self.FK_Formulari_Gjysmevjetori">
+            <End Role="Gjysmevjetori" EntitySet="Gjysmevjetori" />
+            <End Role="Formulari" EntitySet="Formulari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Formulari_Shkolla" Association="Self.FK_Formulari_Shkolla">
+            <End Role="Shkolla" EntitySet="Shkolla" />
+            <End Role="Formulari" EntitySet="Formulari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormulariDetajet_Formulari" Association="Self.FK_FormulariDetajet_Formulari">
+            <End Role="Formulari" EntitySet="Formulari" />
+            <End Role="FormulariDetajet" EntitySet="FormulariDetajet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gjenerata_Shkolla" Association="Self.FK_Gjenerata_Shkolla">
+            <End Role="Shkolla" EntitySet="Shkolla" />
+            <End Role="Gjenerata" EntitySet="Gjenerata" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gjysmevjetori_VitiShkollore" Association="Self.FK_Gjysmevjetori_VitiShkollore">
+            <End Role="VitiShkollore" EntitySet="VitiShkollore" />
+            <End Role="Gjysmevjetori" EntitySet="Gjysmevjetori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuksesiLendor_FormulariDetajet" Association="Self.FK_SuksesiLendor_FormulariDetajet">
+            <End Role="FormulariDetajet" EntitySet="FormulariDetajet" />
+            <End Role="SuksesiLendor" EntitySet="SuksesiLendor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuksesiLendor_Lenda" Association="Self.FK_SuksesiLendor_Lenda">
+            <End Role="Lenda" EntitySet="Lenda" />
+            <End Role="SuksesiLendor" EntitySet="SuksesiLendor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuksesiLendor_Suksesi" Association="Self.FK_SuksesiLendor_Suksesi">
+            <End Role="Suksesi" EntitySet="Suksesi" />
+            <End Role="SuksesiLendor" EntitySet="SuksesiLendor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserShkolla_Shkolla" Association="Self.FK_UserShkolla_Shkolla">
+            <End Role="Shkolla" EntitySet="Shkolla" />
+            <End Role="UserShkolla" EntitySet="UserShkolla" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StatsV4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Formulari">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GjenerataId" Type="Int32" Nullable="false" />
+          <Property Name="GjysmevjetoriId" Type="Int32" Nullable="false" />
+          <Property Name="ShkollaId" Type="Int32" />
+          <Property Name="MungesaMeArsye" Type="Int32" />
+          <Property Name="MungesaPaArsye" Type="Int32" />
+          <NavigationProperty Name="Gjenerata" Relationship="Self.FK_Formulari_Gjenerata" FromRole="Formulari" ToRole="Gjenerata" />
+          <NavigationProperty Name="Gjysmevjetori" Relationship="Self.FK_Formulari_Gjysmevjetori" FromRole="Formulari" ToRole="Gjysmevjetori" />
+          <NavigationProperty Name="Shkolla" Relationship="Self.FK_Formulari_Shkolla" FromRole="Formulari" ToRole="Shkolla" />
+          <NavigationProperty Name="FormulariDetajets" Relationship="Self.FK_FormulariDetajet_Formulari" FromRole="Formulari" ToRole="FormulariDetajet" />
+        </EntityType>
+        <EntityType Name="FormulariDetajet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulariId" Type="Int32" Nullable="false" />
+          <Property Name="OretEPlanifikuara" Type="Int32" />
+          <Property Name="OretEMbajtura" Type="Int32" />
+          <NavigationProperty Name="Formulari" Relationship="Self.FK_FormulariDetajet_Formulari" FromRole="FormulariDetajet" ToRole="Formulari" />
+          <NavigationProperty Name="SuksesiLendors" Relationship="Self.FK_SuksesiLendor_FormulariDetajet" FromRole="FormulariDetajet" ToRole="SuksesiLendor" />
+        </EntityType>
+        <EntityType Name="Gjenerata">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Paralelja" Type="Int32" Nullable="false" />
+          <Property Name="Klasa" Type="Int32" Nullable="false" />
+          <Property Name="VitiShkolloreId" Type="Int32" />
+          <Property Name="ShkollaId" Type="Int32" />
+          <NavigationProperty Name="Formularis" Relationship="Self.FK_Formulari_Gjenerata" FromRole="Gjenerata" ToRole="Formulari" />
+          <NavigationProperty Name="Shkolla" Relationship="Self.FK_Gjenerata_Shkolla" FromRole="Gjenerata" ToRole="Shkolla" />
+        </EntityType>
+        <EntityType Name="Gjysmevjetori">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gjysmevjetori1" Type="Int32" Nullable="false" />
+          <Property Name="VitiShkolloreId" Type="Int32" />
+          <NavigationProperty Name="Formularis" Relationship="Self.FK_Formulari_Gjysmevjetori" FromRole="Gjysmevjetori" ToRole="Formulari" />
+          <NavigationProperty Name="VitiShkollore" Relationship="Self.FK_Gjysmevjetori_VitiShkollore" FromRole="Gjysmevjetori" ToRole="VitiShkollore" />
+        </EntityType>
+        <EntityType Name="Lenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emertimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Klasa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SuksesiLendors" Relationship="Self.FK_SuksesiLendor_Lenda" FromRole="Lenda" ToRole="SuksesiLendor" />
+        </EntityType>
+        <EntityType Name="Shkolla">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emertimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Formularis" Relationship="Self.FK_Formulari_Shkolla" FromRole="Shkolla" ToRole="Formulari" />
+          <NavigationProperty Name="Gjeneratas" Relationship="Self.FK_Gjenerata_Shkolla" FromRole="Shkolla" ToRole="Gjenerata" />
+          <NavigationProperty Name="UserShkollas" Relationship="Self.FK_UserShkolla_Shkolla" FromRole="Shkolla" ToRole="UserShkolla" />
+        </EntityType>
+        <EntityType Name="Suksesi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emertimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SuksesiLendors" Relationship="Self.FK_SuksesiLendor_Suksesi" FromRole="Suksesi" ToRole="SuksesiLendor" />
+        </EntityType>
+        <EntityType Name="SuksesiLendor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulariDetajetId" Type="Int32" Nullable="false" />
+          <Property Name="LendaId" Type="Int32" Nullable="false" />
+          <Property Name="SuksesiId" Type="Int32" Nullable="false" />
+          <Property Name="NrNxenesveFemra" Type="Int32" Nullable="false" />
+          <Property Name="NrNxenesveMeshkuj" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FormulariDetajet" Relationship="Self.FK_SuksesiLendor_FormulariDetajet" FromRole="SuksesiLendor" ToRole="FormulariDetajet" />
+          <NavigationProperty Name="Lenda" Relationship="Self.FK_SuksesiLendor_Lenda" FromRole="SuksesiLendor" ToRole="Lenda" />
+          <NavigationProperty Name="Suksesi" Relationship="Self.FK_SuksesiLendor_Suksesi" FromRole="SuksesiLendor" ToRole="Suksesi" />
+        </EntityType>
+        <EntityType Name="UserShkolla">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShkollaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Shkolla" Relationship="Self.FK_UserShkolla_Shkolla" FromRole="UserShkolla" ToRole="Shkolla" />
+        </EntityType>
+        <EntityType Name="VitiShkollore">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VitiShkollor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Gjysmevjetoris" Relationship="Self.FK_Gjysmevjetori_VitiShkollore" FromRole="VitiShkollore" ToRole="Gjysmevjetori" />
+        </EntityType>
+        <Association Name="FK_Formulari_Gjenerata">
+          <End Role="Gjenerata" Type="Self.Gjenerata" Multiplicity="1" />
+          <End Role="Formulari" Type="Self.Formulari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gjenerata">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Formulari">
+              <PropertyRef Name="GjenerataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Formulari_Gjysmevjetori">
+          <End Role="Gjysmevjetori" Type="Self.Gjysmevjetori" Multiplicity="1" />
+          <End Role="Formulari" Type="Self.Formulari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gjysmevjetori">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Formulari">
+              <PropertyRef Name="GjysmevjetoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Formulari_Shkolla">
+          <End Role="Shkolla" Type="Self.Shkolla" Multiplicity="0..1" />
+          <End Role="Formulari" Type="Self.Formulari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shkolla">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Formulari">
+              <PropertyRef Name="ShkollaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormulariDetajet_Formulari">
+          <End Role="Formulari" Type="Self.Formulari" Multiplicity="1" />
+          <End Role="FormulariDetajet" Type="Self.FormulariDetajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formulari">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FormulariDetajet">
+              <PropertyRef Name="FormulariId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuksesiLendor_FormulariDetajet">
+          <End Role="FormulariDetajet" Type="Self.FormulariDetajet" Multiplicity="1" />
+          <End Role="SuksesiLendor" Type="Self.SuksesiLendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormulariDetajet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuksesiLendor">
+              <PropertyRef Name="FormulariDetajetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gjenerata_Shkolla">
+          <End Role="Shkolla" Type="Self.Shkolla" Multiplicity="0..1" />
+          <End Role="Gjenerata" Type="Self.Gjenerata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shkolla">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gjenerata">
+              <PropertyRef Name="ShkollaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gjysmevjetori_VitiShkollore">
+          <End Role="VitiShkollore" Type="Self.VitiShkollore" Multiplicity="0..1" />
+          <End Role="Gjysmevjetori" Type="Self.Gjysmevjetori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VitiShkollore">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gjysmevjetori">
+              <PropertyRef Name="VitiShkolloreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuksesiLendor_Lenda">
+          <End Role="Lenda" Type="Self.Lenda" Multiplicity="1" />
+          <End Role="SuksesiLendor" Type="Self.SuksesiLendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lenda">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuksesiLendor">
+              <PropertyRef Name="LendaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserShkolla_Shkolla">
+          <End Role="Shkolla" Type="Self.Shkolla" Multiplicity="1" />
+          <End Role="UserShkolla" Type="Self.UserShkolla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shkolla">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserShkolla">
+              <PropertyRef Name="ShkollaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuksesiLendor_Suksesi">
+          <End Role="Suksesi" Type="Self.Suksesi" Multiplicity="1" />
+          <End Role="SuksesiLendor" Type="Self.SuksesiLendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suksesi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuksesiLendor">
+              <PropertyRef Name="SuksesiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StatsV4Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Formularis" EntityType="Self.Formulari" />
+          <EntitySet Name="FormulariDetajets" EntityType="Self.FormulariDetajet" />
+          <EntitySet Name="Gjeneratas" EntityType="Self.Gjenerata" />
+          <EntitySet Name="Gjysmevjetoris" EntityType="Self.Gjysmevjetori" />
+          <EntitySet Name="Lendas" EntityType="Self.Lenda" />
+          <EntitySet Name="Shkollas" EntityType="Self.Shkolla" />
+          <EntitySet Name="Suksesis" EntityType="Self.Suksesi" />
+          <EntitySet Name="SuksesiLendors" EntityType="Self.SuksesiLendor" />
+          <EntitySet Name="UserShkollas" EntityType="Self.UserShkolla" />
+          <EntitySet Name="VitiShkollores" EntityType="Self.VitiShkollore" />
+          <AssociationSet Name="FK_Formulari_Gjenerata" Association="Self.FK_Formulari_Gjenerata">
+            <End Role="Gjenerata" EntitySet="Gjeneratas" />
+            <End Role="Formulari" EntitySet="Formularis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Formulari_Gjysmevjetori" Association="Self.FK_Formulari_Gjysmevjetori">
+            <End Role="Gjysmevjetori" EntitySet="Gjysmevjetoris" />
+            <End Role="Formulari" EntitySet="Formularis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Formulari_Shkolla" Association="Self.FK_Formulari_Shkolla">
+            <End Role="Shkolla" EntitySet="Shkollas" />
+            <End Role="Formulari" EntitySet="Formularis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormulariDetajet_Formulari" Association="Self.FK_FormulariDetajet_Formulari">
+            <End Role="Formulari" EntitySet="Formularis" />
+            <End Role="FormulariDetajet" EntitySet="FormulariDetajets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuksesiLendor_FormulariDetajet" Association="Self.FK_SuksesiLendor_FormulariDetajet">
+            <End Role="FormulariDetajet" EntitySet="FormulariDetajets" />
+            <End Role="SuksesiLendor" EntitySet="SuksesiLendors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gjenerata_Shkolla" Association="Self.FK_Gjenerata_Shkolla">
+            <End Role="Shkolla" EntitySet="Shkollas" />
+            <End Role="Gjenerata" EntitySet="Gjeneratas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gjysmevjetori_VitiShkollore" Association="Self.FK_Gjysmevjetori_VitiShkollore">
+            <End Role="VitiShkollore" EntitySet="VitiShkollores" />
+            <End Role="Gjysmevjetori" EntitySet="Gjysmevjetoris" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuksesiLendor_Lenda" Association="Self.FK_SuksesiLendor_Lenda">
+            <End Role="Lenda" EntitySet="Lendas" />
+            <End Role="SuksesiLendor" EntitySet="SuksesiLendors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserShkolla_Shkolla" Association="Self.FK_UserShkolla_Shkolla">
+            <End Role="Shkolla" EntitySet="Shkollas" />
+            <End Role="UserShkolla" EntitySet="UserShkollas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuksesiLendor_Suksesi" Association="Self.FK_SuksesiLendor_Suksesi">
+            <End Role="Suksesi" EntitySet="Suksesis" />
+            <End Role="SuksesiLendor" EntitySet="SuksesiLendors" />
+          </AssociationSet>
+          <FunctionImport Name="usp_Formulari_Insert">
+            <Parameter Name="prmGjenerataId" Mode="In" Type="Int32" />
+            <Parameter Name="prmGjysmevjetoriId" Mode="In" Type="Int32" />
+            <Parameter Name="prmMungesaPaArsye" Mode="In" Type="Int32" />
+            <Parameter Name="prmMungesaMeArsye" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StatsV4ModelStoreContainer" CdmEntityContainer="StatsV4Entities">
+          <EntitySetMapping Name="Formularis">
+            <EntityTypeMapping TypeName="StatsV4Model.Formulari">
+              <MappingFragment StoreEntitySet="Formulari">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GjenerataId" ColumnName="GjenerataId" />
+                <ScalarProperty Name="GjysmevjetoriId" ColumnName="GjysmevjetoriId" />
+                <ScalarProperty Name="ShkollaId" ColumnName="ShkollaId" />
+                <ScalarProperty Name="MungesaMeArsye" ColumnName="MungesaMeArsye" />
+                <ScalarProperty Name="MungesaPaArsye" ColumnName="MungesaPaArsye" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormulariDetajets">
+            <EntityTypeMapping TypeName="StatsV4Model.FormulariDetajet">
+              <MappingFragment StoreEntitySet="FormulariDetajet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FormulariId" ColumnName="FormulariId" />
+                <ScalarProperty Name="OretEPlanifikuara" ColumnName="OretEPlanifikuara" />
+                <ScalarProperty Name="OretEMbajtura" ColumnName="OretEMbajtura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gjeneratas">
+            <EntityTypeMapping TypeName="StatsV4Model.Gjenerata">
+              <MappingFragment StoreEntitySet="Gjenerata">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Paralelja" ColumnName="Paralelja" />
+                <ScalarProperty Name="Klasa" ColumnName="Klasa" />
+                <ScalarProperty Name="VitiShkolloreId" ColumnName="VitiShkolloreId" />
+                <ScalarProperty Name="ShkollaId" ColumnName="ShkollaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gjysmevjetoris">
+            <EntityTypeMapping TypeName="StatsV4Model.Gjysmevjetori">
+              <MappingFragment StoreEntitySet="Gjysmevjetori">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Gjysmevjetori1" ColumnName="Gjysmevjetori" />
+                <ScalarProperty Name="VitiShkolloreId" ColumnName="VitiShkolloreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lendas">
+            <EntityTypeMapping TypeName="StatsV4Model.Lenda">
+              <MappingFragment StoreEntitySet="Lenda">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Emertimi" ColumnName="Emertimi" />
+                <ScalarProperty Name="Klasa" ColumnName="Klasa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shkollas">
+            <EntityTypeMapping TypeName="StatsV4Model.Shkolla">
+              <MappingFragment StoreEntitySet="Shkolla">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Emertimi" ColumnName="Emertimi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suksesis">
+            <EntityTypeMapping TypeName="StatsV4Model.Suksesi">
+              <MappingFragment StoreEntitySet="Suksesi">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Emertimi" ColumnName="Emertimi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuksesiLendors">
+            <EntityTypeMapping TypeName="StatsV4Model.SuksesiLendor">
+              <MappingFragment StoreEntitySet="SuksesiLendor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FormulariDetajetId" ColumnName="FormulariDetajetId" />
+                <ScalarProperty Name="LendaId" ColumnName="LendaId" />
+                <ScalarProperty Name="SuksesiId" ColumnName="SuksesiId" />
+                <ScalarProperty Name="NrNxenesveFemra" ColumnName="NrNxenesveFemra" />
+                <ScalarProperty Name="NrNxenesveMeshkuj" ColumnName="NrNxenesveMeshkuj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserShkollas">
+            <EntityTypeMapping TypeName="StatsV4Model.UserShkolla">
+              <MappingFragment StoreEntitySet="UserShkolla">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ShkollaId" ColumnName="ShkollaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VitiShkollores">
+            <EntityTypeMapping TypeName="StatsV4Model.VitiShkollore">
+              <MappingFragment StoreEntitySet="VitiShkollore">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VitiShkollor" ColumnName="VitiShkollor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_Formulari_Insert" FunctionName="StatsV4Model.Store.usp_Formulari_Insert" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

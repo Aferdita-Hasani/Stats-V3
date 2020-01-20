@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Stats_V3.Formulari>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Formularet</h2>
+
+<p>
+    @Html.ActionLink("Shto", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            Gjenerata
+            @*@Html.DisplayNameFor(model => model.Gjenerata.Id)*@
+        </th>
+        <th>
+            Gjysmevjetori
+            @*@Html.DisplayNameFor(model => model.Gjysmevjetori.Id)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MungesaMeArsye)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MungesaPaArsye)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Gjenerata.Id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Gjysmevjetori.Id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MungesaMeArsye)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MungesaPaArsye)
+    </td>
+
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </td>
+</tr>
+}
+
+</table>
