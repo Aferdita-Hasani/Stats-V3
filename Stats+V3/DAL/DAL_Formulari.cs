@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -40,6 +41,48 @@ namespace Stats_V3.DAL
 
         }
 
+
+        public static Formulari Read(int? id)
+        {
+            var formulari = new Formulari();
+            var conn = DBHelper.GetConnection();
+            var cmd = new SqlCommand("usp_Formularet_GetById", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                if (id != null)
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    conn.Open();
+                    var rdr = cmd.ExecuteReader();
+
+                    if (rdr.Read())
+                    {
+                        formulari.Id = int.Parse(rdr["Id"].ToString());
+                        formulari.GjenerataId = int.Parse(rdr["GjenerataId"].ToString());
+                        formulari.GjysmevjetoriId = int.Parse(rdr["GjysmevjetoriId"].ToString());
+                        formulari.ShkollaId = int.Parse(rdr["ShkollaId"].ToString());
+                        formulari.MungesaMeArsye = int.Parse(rdr["MungesaMeArsye"].ToString());
+                        formulari.MungesaPaArsye = int.Parse(rdr["MungesaPaArsye"].ToString());
+                    }
+                    return formulari;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
         public static List<Formulari> ListFormular()
         {
             var LstGJ = new List<Formulari>();

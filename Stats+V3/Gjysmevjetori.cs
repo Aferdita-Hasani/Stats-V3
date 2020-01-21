@@ -11,7 +11,8 @@ namespace Stats_V3
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Gjysmevjetori
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,5 +28,6 @@ namespace Stats_V3
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Formulari> Formularis { get; set; }
         public virtual VitiShkollore VitiShkollore { get; set; }
+        public SelectList ListaVitiShkollor { get; set; }
     }
 }

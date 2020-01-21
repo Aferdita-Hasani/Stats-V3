@@ -171,11 +171,18 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FormulariController.cs" />
+    <Compile Include="Controllers\FormulariDetajetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DAL\DAL_Formulari.cs" />
+    <Compile Include="DAL\DAL_FormulariDetaje.cs" />
     <Compile Include="DAL\DAL_Gjenerata.cs" />
     <Compile Include="DAL\DAL_Gjysmevjetori.cs" />
+    <Compile Include="DAL\DAL_Lenda.cs" />
+    <Compile Include="DAL\DAL_Shkolla.cs" />
+    <Compile Include="DAL\DAL_Suksesi.cs" />
+    <Compile Include="DAL\DAL_SuksesiLendor.cs" />
+    <Compile Include="DAL\DAL_VitiShkollor.cs" />
     <Compile Include="DAL\DBHelper.cs" />
     <Compile Include="Formulari.cs">
       <DependentUpon>StatsV4Model.tt</DependentUpon>
@@ -196,6 +203,7 @@
       <DependentUpon>StatsV4Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FullFormularViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2027,8 +2035,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -2062,6 +2068,15 @@
     <Content Include="Views\Formulari\Details.cshtml" />
     <Content Include="Views\Formulari\Edit.cshtml" />
     <Content Include="Views\Formulari\Index.cshtml" />
+    <Content Include="Views\Home\ShowVitiShkollor.cshtml" />
+    <Content Include="Views\Home\CreateVitiShkollore.cshtml" />
+    <Content Include="Views\Home\ShowGjysmevjetori.cshtml" />
+    <Content Include="Views\Home\CreateGjysmevjetori.cshtml" />
+    <Content Include="Views\Home\CreateLenda.cshtml" />
+    <Content Include="Views\Home\ShowLenda.cshtml" />
+    <Content Include="Views\Home\CreateShkolla.cshtml" />
+    <Content Include="Views\Home\ShowShkolla.cshtml" />
+    <Content Include="Views\FormulariDetajet\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

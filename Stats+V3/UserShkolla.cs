@@ -11,13 +11,18 @@ namespace Stats_V3
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class UserShkolla
     {
         public int Id { get; set; }
         public string UserId { get; set; }
         public int ShkollaId { get; set; }
     
+       
         public virtual Shkolla Shkolla { get; set; }
+
+        public SelectList ListaUser { get; set; }
+        public SelectList ListaShkolla { get; set; }
     }
 }

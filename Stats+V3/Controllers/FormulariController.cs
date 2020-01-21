@@ -7,18 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Stats_V3;
+using Stats_V3.Models;
 
 namespace Stats_V3.Controllers
 {
     public class FormulariController : Controller
     {
         private StatsV4Entities db = new StatsV4Entities();
-
+        
         // GET: Formulari
         public ActionResult Index()
         {
             //var formularis = db.Formularis.Include(f => f.Gjenerata).Include(f => f.Gjysmevjetori).Include(f => f.Shkolla);
             var formulari = DAL.DAL_Formulari.ListFormular();
+            
             return View(formulari.ToList());
         }
 
@@ -29,7 +31,7 @@ namespace Stats_V3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Formulari formulari = db.Formularis.Find(id);
+            Formulari formulari = DAL.DAL_Formulari.Read(id);
             if (formulari == null)
             {
                 return HttpNotFound();
@@ -40,10 +42,13 @@ namespace Stats_V3.Controllers
         // GET: Formulari/Create
         public ActionResult Create()
         {
-            ViewBag.GjenerataId = new SelectList(db.Gjeneratas, "Id", "FullInfo");
-            ViewBag.GjysmevjetoriId = new SelectList(db.Gjysmevjetoris, "Id", "Id");
-            ViewBag.ShkollaId = new SelectList(db.Shkollas, "Id", "Emertimi");
-            return View();
+            var model = new FullFormularViewModel();
+            model.formulari = new Formulari();
+            model.formulari.ListaGjenerata= new SelectList(DAL.DAL_Gjenerata.ListGjenerata(), "Id", "FullInfo");
+            model.formulari.ListaGjysemvjetori = new SelectList(DAL.DAL_Gjysmevjetori.List(), "Id", "Gjysmevjetori1");
+           model.lenda= new SelectList(DAL.DAL_Lenda.List(), "Id", "Emertimi");
+            model.suksesi = new SelectList(DAL.DAL_Suksesi.List(), "Id", "Emertimi");
+            return View(model);
         }
 
         // POST: Formulari/Create
@@ -59,10 +64,13 @@ namespace Stats_V3.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GjenerataId = new SelectList(db.Gjeneratas, "Id", "Id", formulari.GjenerataId);
-            ViewBag.GjysmevjetoriId = new SelectList(db.Gjysmevjetoris, "Id", "Id", formulari.GjysmevjetoriId);
-            ViewBag.ShkollaId = new SelectList(db.Shkollas, "Id", "Emertimi", formulari.ShkollaId);
-            return View(formulari);
+            var model = new FullFormularViewModel();
+            model.formulari = new Formulari();
+            model.formulari.ListaGjenerata = new SelectList(DAL.DAL_Gjenerata.ListGjenerata(), "Id", "FullInfo");
+            model.formulari.ListaGjysemvjetori = new SelectList(DAL.DAL_Gjysmevjetori.List(), "Id", "Gjysmevjetori1");
+            model.lenda = new SelectList(DAL.DAL_Lenda.List(), "Id", "Emertimi");
+            model.suksesi = new SelectList(DAL.DAL_Suksesi.List(), "Id", "Emertimi");
+            return View(model);
         }
 
         // GET: Formulari/Edit/5

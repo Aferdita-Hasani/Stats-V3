@@ -52,6 +52,26 @@
 
     </dl>
 </div>
+<div>
+    <a class="btn btn-success" href="@Url.Action("Create","FormulariDetajet",new { id=Model.Id})">Shto detajet</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Formulari Id</th>
+                <th>Oret e planifikuara</th>
+                <th>Oret e mbajtura</th>
+                <th>Lenda</th>
+                <th>Suksesi lendor</th>
+                <th>Nr nxenese femra</th>
+                <th>Nr nxenese meshkuj</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

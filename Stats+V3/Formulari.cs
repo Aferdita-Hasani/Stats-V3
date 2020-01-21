@@ -11,7 +11,9 @@ namespace Stats_V3
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public partial class Formulari
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,8 +23,11 @@ namespace Stats_V3
         }
     
         public int Id { get; set; }
+        [Display(Name ="Gjenerata")]
         public int GjenerataId { get; set; }
+        [Display(Name = "Gjysemvjetori")]
         public int GjysmevjetoriId { get; set; }
+        [Display(Name = "Shkolla")]
         public Nullable<int> ShkollaId { get; set; }
         public Nullable<int> MungesaMeArsye { get; set; }
         public Nullable<int> MungesaPaArsye { get; set; }
@@ -32,5 +37,9 @@ namespace Stats_V3
         public virtual Shkolla Shkolla { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FormulariDetajet> FormulariDetajets { get; set; }
+
+        public SelectList ListaGjenerata{ get; set; }
+        public SelectList ListaGjysemvjetori { get; set; }
+        public SelectList ListaShkolla { get; set; }
     }
 }

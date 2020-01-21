@@ -55,11 +55,11 @@ namespace Stats_V3.DAL
             }
         }
 
-        public static List<Formulari> ListFormular()
+        public static List<Gjenerata> ListGjenerata()
         {
-            var LstGJ = new List<Formulari>();
+            var LstGJ = new List<Gjenerata>();
             var conn = DBHelper.GetConnection();
-            var cmd = new SqlCommand("usp_Formulari_GetList", conn);
+            var cmd = new SqlCommand("usp_Gjenerata_GetList", conn);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
             try
@@ -69,22 +69,20 @@ namespace Stats_V3.DAL
                 var rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    var formulari = new Formulari();
-                    formulari.GjenerataId = int.Parse(rdr["GjenerataId"].ToString());
-                    formulari.Id = int.Parse(rdr["Id"].ToString());
-                    formulari.GjysmevjetoriId = int.Parse(rdr["GjysmevjetoriId"].ToString());
-                    formulari.ShkollaId = int.Parse(rdr["ShkollaId"].ToString());
-                    formulari.MungesaMeArsye = int.Parse(rdr["MungesaMeArsye"].ToString());
-                    formulari.MungesaPaArsye = int.Parse(rdr["MungesaPaArsye"].ToString());
+                    var gjenerata = new Gjenerata();
+                    gjenerata.Id = int.Parse(rdr["Id"].ToString());
+                    gjenerata.Klasa = int.Parse(rdr["Klasa"].ToString());
+                    gjenerata.Paralelja = int.Parse(rdr["Paralelja"].ToString());
+                    gjenerata.ShkollaId = int.Parse(rdr["ShkollaId"].ToString());
+                    gjenerata.VitiShkollore = new VitiShkollore();
+                    gjenerata.VitiShkollore.VitiShkollor = rdr["VitiShkollor"].ToString();
+                    gjenerata.VitiShkollore.Id = int.Parse(rdr["VitiId"].ToString());
 
-                    formulari.Gjysmevjetori = DAL_Gjysmevjetori.Read(formulari.GjysmevjetoriId);
-                    formulari.Gjenerata = DAL_Gjenerata.Read(formulari.GjenerataId);
-
-                    LstGJ.Add(formulari);
+                    LstGJ.Add(gjenerata);
                 }
                 return LstGJ;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }
