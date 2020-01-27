@@ -5,92 +5,179 @@
 }
 
 
+<br />
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="~/Formulari/Index">Formulari</a>
+    </li>
+    <li class="breadcrumb-item active">Shto</li>
+</ol>
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Formulari", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
+
+    <br />
     <div class="form-horizontal">
         <div>
-            <h4>Shto Formulari</h4>
+            <h4> Formulari</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group col-6 ">
-                @Html.LabelFor(model => model.formulari.GjenerataId, "GjenerataId", htmlAttributes: new { @class = " col-md-12" })
-                <div class="col-md-12">
-                    @Html.DropDownListFor(model => model.formulari.GjenerataId, Model.formulari.ListaGjenerata, "Zgjidh Gjeneraten", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.formulari.GjenerataId, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group col-6 ">
-                @Html.LabelFor(model => model.formulari.GjysmevjetoriId, "GjysmevjetoriId", htmlAttributes: new { @class = " col-md-12" })
-                <div class="col-md-12">
-                    @Html.DropDownListFor(model => model.formulari.GjysmevjetoriId, Model.formulari.ListaGjysemvjetori, "Zgjidh gjysmevjetorin", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.formulari.GjysmevjetoriId, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.suksesiLendorJson)
+            @Html.HiddenFor(model => model.formulariDetajetJson)
+            <div class="row">
+                <div class=" col-md-3 ">
+                    @Html.LabelFor(model => model.GjenerataId, "Gjenerata", htmlAttributes: new { @class = " col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(model => model.GjenerataId, Model.ListaGjenerata, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GjenerataId, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
+
+                <div class=" col-md-3 ">
+                    @Html.LabelFor(model => model.GjysmevjetoriId, "Gjysmevjetori", htmlAttributes: new { @class = " col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(model => model.GjysmevjetoriId, Model.ListaGjysemvjetori, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GjysmevjetoriId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class=" col-md-3">
+                    @Html.LabelFor(model => model.MungesaMeArsye, "Mungesa me arsye", htmlAttributes: new { @class = " col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.MungesaMeArsye, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MungesaMeArsye, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class=" col-md-3">
+                    @Html.LabelFor(model => model.MungesaPaArsye, "Mungesa pa arsye", htmlAttributes: new { @class = " col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.MungesaPaArsye, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MungesaPaArsye, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
 
-            <div class="form-group col-6">
-                @Html.LabelFor(model => model.formulari.MungesaMeArsye, htmlAttributes: new { @class = " col-md-12" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.formulari.MungesaMeArsye, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.formulari.MungesaMeArsye, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-6">
-                @Html.LabelFor(model => model.formulari.MungesaPaArsye, htmlAttributes: new { @class = " col-md-12" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.formulari.MungesaPaArsye, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.formulari.MungesaPaArsye, "", new { @class = "text-danger" })
-                </div>
             </div>
         </div>
         <br />
+        <br />
+        <h4>Suksesi Lendor</h4>
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.lendaId, "Lenda", htmlAttributes: new { @class = " col-md-12" })
+                <div class="col-12">
+                    @Html.DropDownListFor(model => model.lendaId, Model.lenda, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.lendaId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class=" col-md-3" id="oretP">
+                @Html.LabelFor(model => model.oretEPlanifikuara, "Oret e planifikuara", htmlAttributes: new { @class = " col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.oretEPlanifikuara, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.oretEPlanifikuara, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class=" col-md-3" id="oretM">
+                @Html.LabelFor(model => model.oretEMbajtura, "Oret e mbajtura", htmlAttributes: new { @class = " col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.oretEMbajtura, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.oretEMbajtura, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        <br />
+
         <br />
         <div>
-            <h4>Suksesi Lendor</h4>
+
+            <div class="row">
+
+
+                <div class="col-md-5">
+                    @Html.LabelFor(model => model.suksesiId, "Suksesi", htmlAttributes: new { @class = " col-md-12" })
+                    <div class="col-12">
+                        @Html.DropDownListFor(model => model.suksesiId, Model.suksesi, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.suksesiId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class=" col-md-2">
+                    @Html.LabelFor(model => model.nrFemra, "Femra", htmlAttributes: new { @class = " col-md-12" })
+                    <div class="col-12">
+                        @Html.EditorFor(model => model.nrFemra, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.nrFemra, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.nrMeshkuj, "Meshkuj", htmlAttributes: new { @class = " col-md-12" })
+                    <div class="col-12">
+                        @Html.EditorFor(model => model.nrMeshkuj, new { htmlAttributes = new { @class = "form-control " } })
+                        @Html.ValidationMessageFor(model => model.nrMeshkuj, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class=" col-2">
+
+                    <button id="addRowInTable" type="button" class="btn btn-primary" style="margin-top:20%"> Shto Suksesin</button>
+                </div>
+            </div>
             <br />
-            <div class="form-group col-3">
-                @Html.LabelFor(model => model.lenda, htmlAttributes: new { @class = " col-md-12" })
-                <div class="col-md-12">
-                    @Html.DropDownListFor(model => model.lenda,Model.lenda,"Zgjidh lenden", new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.lenda, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <br />
+            <div>
 
-            <div class="form-group col-3">
-                @Html.LabelFor(model => model.suksesi, htmlAttributes: new { @class = " col-md-12" })
-                <div class="col-md-12">
-                    @Html.DropDownListFor(model => model.suksesi,Model.suksesi,"Zgjidh suksesin", new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.suksesi, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group col-2">
-                @Html.LabelFor(model => model, htmlAttributes: new { @class = " col-md-12" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.MungesaMeArsye, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MungesaMeArsye, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-table"></i>
 
-            <div class="form-group col-2">
-                @Html.LabelFor(model => model.MungesaPaArsye, htmlAttributes: new { @class = " col-md-12" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.MungesaPaArsye, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MungesaPaArsye, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="card-body">
+
+                        <table class="table table-bordered" id="suksesiLendor" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        Lenda
+                                    </th>
+                                    <th>
+                                        Suksesi
+                                    </th>
+                                    <th>
+                                        Nxenes Femra
+                                    </th>
+                                    <th>
+                                        Nxenes Meshkuj
+                                    </th>
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+
+
+
+                        </table>
+
+                    </div>
+
                 </div>
-            </div>
-            <div class=" col-2">
-                <input type="submit" value="Create" class="btn btn-default" />
+
+
+
+
+
             </div>
         </div>
+        <br />
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class=" col-md-10">
+                <input type="submit" value="Shto Formularin" id="ruajFormularin" class="btn btn-primary pull-left" />
             </div>
         </div>
     </div>
@@ -99,10 +186,83 @@
 
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        var lendet = [];
+        var suksesiLendor = "";
+        var detajetEFormularit = "";
+        $("#addRowInTable").click(function () {
+
+            var lenda = $("#lendaId").val() + " " + $("#lendaId option:selected").text();
+            var suksesi = $("#suksesiId").val() + " " + $("#suksesiId option:selected").text();
+            var nrFemra = $("#nrFemra").val();
+            var nrMeshkuj = $("#nrMeshkuj").val();
+            var row = '<tr><td>' + lenda + '</td><td>' + suksesi + '</td><td>' + nrFemra + '</td><td>' + nrMeshkuj + '</td><td><button class="btn btn-danger" id="' + $("#lenda").val() + $("#lenda option:selected").text() + ' > Delete</button></td></tr> ';
+            $('#suksesiLendor').append(row);
+            suksesiLendor += $("#lendaId").val() + ',' + $("#suksesiId").val() + ',' + $("#nrFemra").val() + ',' + $("#nrMeshkuj").val() + ";";
+         
+
+
+            var count = 0;
+            if (lendet != null) {
+                for (let i = 0; i < lendet.length; ++i) {
+
+
+                    if (jQuery("#lendaId").val() == lendet[i]) {
+
+                        count++;
+                    }
+
+                }
+            }
+            if (count == 0) {
+                detajetEFormularit +=  $("#lendaId").val() + ',' + $("#oretEPlanifikuara").val() + ',' + $("#oretEMbajtura").val()+ ";" ;
+               
+
+                lendet.push($("#lendaId").val());
+                $("#oretP").hide();
+                $("#oretM").hide();
+            }
+
+
+        });
+        $("#ruajFormularin").click(function () {
+            $("#suksesiLendorJson").val(suksesiLendor);
+             $("#formulariDetajetJson").val(detajetEFormularit);
+
+        });
+        $("#lendaId").change(function () {
+
+            var count = 0;
+
+            for (let i = 0; i < lendet.length; ++i) {
+
+
+                if (jQuery("#lendaId").val() == lendet[i]) {
+
+                    count++;
+                }
+
+            }
+            if (count > 0) {
+
+                $("#oretP").hide();
+                $("#oretM").hide();
+            }
+            else {
+
+                $("#oretP").show();
+                $("#oretM").show();
+            }
+
+
+
+        });
+
+
+    </script>
 }

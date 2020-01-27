@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Stats_V3.Models.RaportiIGjenerates>
+@{
+    ViewBag.Title = "RaportiGjenerates";
+}
+
+
+<br />
+<ol class="breadcrumb">
+
+    <li class="breadcrumb-item active">Raportet</li>
+</ol>
+<br />
+
+
+
+<div class="card mb-3 ">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="r" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <td rowspan="2" >Klasa</td>
+                        <td rowspan="2">Paralelja</td>
+                        <td colspan="3">Nr nxeneseve</td>
+                        @foreach (var suksesi in Model.FirstOrDefault().Suksesi)
+                        {
+                            <td colspan="2" class="vrt-header">@suksesi.Suksesi</td>
+                        }
+
+
+                        <td>Numri i mungesave</td>
+
+                    </tr>
+
+                    <tr>
+                        <td>M</td>
+                        <td>F</td>
+                        <td>GJ</td>
+                        <td>Nr</td>
+                        <td>%</td>
+                        <td>Nr</td>
+                        <td>%</td>
+                        <td>Nr</td>
+                        <td>%</td>
+                        <td>Nr</td>
+                        <td>%</td>
+                        <td>Nr</td>
+                        <td>%</td>
+                        <td>Te arsyeshme</td>
+                        <td>Te paarsyeshme</td>
+                        <td>total</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Klasa</td>
+                            <td>@item.NrParalele</td>
+                            <td>@item.NrNxeneseF</td>
+                            <td>@item.NrNxeneseM</td>
+                            <td>@(item.NrNxeneseF + item.NrNxeneseM)</td>
+                            @foreach (var suksesi in item.Suksesi)
+                            {
+                                <td>@(suksesi.NrFemra + suksesi.NrMeshkuj)</td>
+                                <td>@(((suksesi.NrFemra + suksesi.NrMeshkuj) * 100) / (item.NrNxeneseF + item.NrNxeneseM))%</td>
+                            }
+                            <td>@item.NrMungesMeArsye</td>
+                            <td>@item.NrMungesaPaArsye</td>
+                            <td>@item.NrMungesaTotal</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<style>
+    table.dataTable tbody td {
+        vertical-align: top;
+    }
+</style>
+@section Scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#r").DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel'
+                ],
+                "language": {
+                    "sProcessing": "Duke u procesuar",
+                    "sLengthMenu": "Shfaqni shënimet _MENU_",
+                    "sZeroRecords": "Nuk u gjetën rezultate",
+                    "sEmptyTable": "Nuk ka të dhëna në dispozicion në këtë tabelë",
+                    "sInfo": "Shfaqja e të dhënave nga _START_ në _END_ të një totalit të të dhënave _TOTAL_",
+                    "sInfoEmpty": "Duke shfaqur shënimet nga 0 në 0 nga gjithsej 0 shënime",
+                    "sInfoFiltered": "(duke filtruar një total të të dhënave _MAX_)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Kerko:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Bgarkim...",
+                    "oPaginate": {
+                        "sFirst": "E para",
+                        "sLast": "E fundit",
+                        "sNext": "Pas",
+                        "sPrevious": "Para"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Rendit nga A tek Z",
+                        "sSortDescending": ": Rendit nga Z tek A"
+                    }
+                }
+            });
+        });
+    </script>
+}

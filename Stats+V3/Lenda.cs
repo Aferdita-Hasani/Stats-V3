@@ -26,5 +26,6 @@ namespace Stats_V3
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SuksesiLendor> SuksesiLendors { get; set; }
+        public string KlasatJson { get; set; }
     }
 }

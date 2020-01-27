@@ -29,7 +29,9 @@ namespace Stats_V3
         public int GjysmevjetoriId { get; set; }
         [Display(Name = "Shkolla")]
         public Nullable<int> ShkollaId { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Nuk mund te vendosni numra negativ")]
         public Nullable<int> MungesaMeArsye { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Nuk mund te vendosni numra negativ")]
         public Nullable<int> MungesaPaArsye { get; set; }
     
         public virtual Gjenerata Gjenerata { get; set; }
@@ -41,5 +43,7 @@ namespace Stats_V3
         public SelectList ListaGjenerata{ get; set; }
         public SelectList ListaGjysemvjetori { get; set; }
         public SelectList ListaShkolla { get; set; }
+
+   
     }
 }

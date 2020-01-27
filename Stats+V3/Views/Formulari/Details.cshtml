@@ -1,11 +1,17 @@
-﻿@model Stats_V3.Formulari
+﻿@model Stats_V3.Models.FullFormularViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
+<br />
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="~/Formulari/Index">Formularet</a>
+    </li>
+    <li class="breadcrumb-item active">Detajet</li>
+</ol>
+<br />
 <div>
     <h4>Formulari</h4>
     <hr />
@@ -26,40 +32,18 @@
             @Html.DisplayFor(model => model.MungesaPaArsye)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gjenerata.Id)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gjenerata.Id)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gjysmevjetori.Id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gjysmevjetori.Id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Shkolla.Emertimi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Shkolla.Emertimi)
-        </dd>
 
     </dl>
 </div>
 <div>
-    <a class="btn btn-success" href="@Url.Action("Create","FormulariDetajet",new { id=Model.Id})">Shto detajet</a>
-    <table class="table">
+
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Formulari Id</th>
-                <th>Oret e planifikuara</th>
-                <th>Oret e mbajtura</th>
+
+
                 <th>Lenda</th>
                 <th>Suksesi lendor</th>
                 <th>Nr nxenese femra</th>
@@ -68,7 +52,19 @@
             </tr>
         </thead>
         <tbody>
-            
+            @foreach (var item in Model.suksesiLendor)
+            {
+                <tr>
+
+
+                    <th>@item.Lenda.Emertimi</th>
+                    <th>@item.Suksesi.Emertimi</th>
+                    <th>@item.NrNxenesveFemra</th>
+                    <th>@item.NrNxenesveMeshkuj</th>
+
+                </tr>
+            }
+
         </tbody>
     </table>
 </div>

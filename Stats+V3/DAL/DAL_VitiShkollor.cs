@@ -44,6 +44,8 @@ namespace Stats_V3.DAL
 
 
         #endregion
+       
+        
         #region Create
         public static bool Create(VitiShkollore vitiSh)
         {
@@ -73,5 +75,9 @@ namespace Stats_V3.DAL
 
         }
         #endregion
+   
+    
+    
+    
     }
 }

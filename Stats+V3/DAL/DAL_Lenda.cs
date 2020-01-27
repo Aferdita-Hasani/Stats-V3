@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,7 @@ namespace Stats_V3.DAL
     {
 
         #region Create
-        public static bool Create(Lenda lenda)
+        public static int Create(Lenda lenda)
         {
             var conn = DBHelper.GetConnection();
 
@@ -20,14 +21,13 @@ namespace Stats_V3.DAL
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("@prmEmertimi", lenda.Emertimi);
-                cmd.Parameters.AddWithValue("@prmKlasa", lenda.Klasa);
 
-
+                cmd.Parameters.Add("@prmId", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
 
-                return true;
+                return Convert.ToInt32(cmd.Parameters["@prmId"].Value);
             }
             catch (Exception)
             {
@@ -78,5 +78,40 @@ namespace Stats_V3.DAL
             }
         }
         #endregion
+
+
+        #region CreateLendaKlasa
+        public static bool CreateLendaKlasa(int Lendaid, int klasa)
+        {
+            var conn = DBHelper.GetConnection();
+
+            try
+            {
+                var cmd = new SqlCommand("usp_LendaKlasa_Insert", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@prmLendaId", Lendaid);
+                cmd.Parameters.AddWithValue("@prmKlasa", klasa);
+
+
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+        }
+        #endregion
+
+
     }
 }

@@ -19,30 +19,37 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-
+    @Html.HiddenFor(m=>m.KlasatJson)
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
+    <div class="col-md-6">
         @Html.LabelFor(model => model.Emertimi, htmlAttributes: new { @class = "control-label col-md-3" })
         <div class="col-md-6">
             @Html.EditorFor(model => model.Emertimi, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Emertimi, "", new { @class = "text-danger" })
         </div>
     </div>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.Klasa, htmlAttributes: new { @class = "control-label col-md-3" })
         <div class="col-md-6">
             @Html.EditorFor(model => model.Klasa, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Klasa, "", new { @class = "text-danger" })
         </div>
-    </div>
-
-
+    </div>*@
+    <br />
+<div class="col-md-6">
+    @for (int i = 1; i < 10; i++)
+    {
+        <input type="checkbox" value="@i" />
+        <label>@i</label>
+        <br />
+    }
+</div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Shto" class="btn btn-primary" />
+            <input type="submit" value="Shto" id="save" class="btn btn-primary" />
         </div>
     </div>
 </div>
@@ -50,6 +57,20 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var klasatJson = "";
+
+      $("input[type='checkbox']").change(function () {
+            if (this.checked) {
+                console.log($(this).val());
+                klasatJson += $(this).val() + ",";
+            }
+        });
+
+        $("#save").click(function () {
+            $("#KlasatJson").val(klasatJson);
+        });
+    </script>
 }
 
 

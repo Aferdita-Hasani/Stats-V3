@@ -1,0 +1,137 @@
+﻿@model IEnumerable<Stats_V3.Gjenerata>
+@{
+    ViewBag.Title = "ShowGjenerata";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="~/Home/Index">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Gjenerata</li>
+    </ol>
+    <p>
+        @Html.ActionLink("Shto", "CreateGjenerata", "Home", null, new { @class = "btn btn-dark" })
+    </p>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="gjenerata" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                Klasa
+
+                            </th>
+                            <th>
+                                Viti Shkollore
+                            </th>
+                            <th>
+                                Nr i nxenesve Femra
+                            </th>
+                            <th>
+                                Nr i nxenesve Meshkuj
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Klasa
+
+                            </th>
+                            <th>
+                                Viti Shkollore
+                            </th>
+                            <th>
+                                Nr i nxenesve Femra
+                            </th>
+                            <th>
+                                Nr i nxenesve Meshkuj
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FullInfo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VitiShkollore.VitiShkollor)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NrFemra)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NrMeshkuj)
+                                </td>
+                                <td align="right">
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#gjenerata").DataTable({
+                "dom": '<"pull-left"f><"pull-right"l>tip',
+                "language": {
+                    "sProcessing": "Duke u procesuar",
+                    "sLengthMenu": "Shfaqni shënimet _MENU_",
+                    "sZeroRecords": "Nuk u gjetën rezultate",
+                    "sEmptyTable": "Nuk ka të dhëna në dispozicion në këtë tabelë",
+                    "sInfo": "Shfaqja e të dhënave nga _START_ në _END_ të një totalit të të dhënave _TOTAL_",
+                    "sInfoEmpty": "Duke shfaqur shënimet nga 0 në 0 nga gjithsej 0 shënime",
+                    "sInfoFiltered": "(duke filtruar një total të të dhënave _MAX_)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Kerko:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Bgarkim...",
+                    "oPaginate": {
+                        "sFirst": "E para",
+                        "sLast": "E fundit",
+                        "sNext": "Pas",
+                        "sPrevious": "Para"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Rendit nga A tek Z",
+                        "sSortDescending": ": Rendit nga Z tek A"
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+
+

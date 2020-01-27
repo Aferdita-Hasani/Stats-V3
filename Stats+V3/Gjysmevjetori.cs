@@ -23,6 +23,14 @@ namespace Stats_V3
     
         public int Id { get; set; }
         public int Gjysmevjetori1 { get; set; }
+        public string FullInfo
+        {
+            get
+            {
+                return Gjysmevjetori1 == 1 ? "i parë, " + VitiShkollore.VitiShkollor : "i dytë, " + VitiShkollore.VitiShkollor;
+            }
+        }
+
         public Nullable<int> VitiShkolloreId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

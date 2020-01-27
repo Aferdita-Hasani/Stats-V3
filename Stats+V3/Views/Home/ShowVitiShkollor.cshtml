@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Stats_V3.VitiShkollore>
 
 @{
-    ViewBag.Title = "IndShowVitiShkollorex";
+    ViewBag.Title = "ShowVitiShkollore";
 }
 
 <br />
@@ -12,7 +12,7 @@
     <li class="breadcrumb-item active">Viti Shkollore</li>
 </ol>
 <p>
-    @Html.ActionLink("Shto", "CreateVitiShkollore","Home", null, new { @class = "btn btn-dark" })
+    @Html.ActionLink("Shto", "CreateVitiShkollore", "Home", null, new { @class = "btn btn-dark" })
 </p>
 
 <div class="card mb-3">
@@ -22,18 +22,28 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="viti" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.VitiShkollor)
                         </th>
+                        <th></th>
 
                     </tr>
                 </thead>
-                @foreach (var item in Model)
-                {
-                    <tfoot>
+                <tfoot>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.VitiShkollor)
+                        </th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.VitiShkollor)
@@ -41,17 +51,55 @@
 
                             <td align="right">
                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
 
 
                             </td>
                         </tr>
-                    </tfoot>
-                }
 
+                    }
+                </tbody>
             </table>
 
         </div>
     </div>
 </div>
+@section Scripts{
+
+    <script type="text/javascript">
+
+       
+            $(document).ready(function () {
+            
+                $("#viti").DataTable({
+                    "dom": '<"pull-left"f><"pull-right"l>tip',
+                    "language": {
+                        "sProcessing": "Duke u procesuar",
+                        "sLengthMenu": "Shfaqni shënimet _MENU_",
+                        "sZeroRecords": "Nuk u gjetën rezultate",
+                        "sEmptyTable": "Nuk ka të dhëna në dispozicion në këtë tabelë",
+                        "sInfo": "Shfaqja e të dhënave nga _START_ në _END_ të një totalit të të dhënave _TOTAL_",
+                        "sInfoEmpty": "Duke shfaqur shënimet nga 0 në 0 nga gjithsej 0 shënime",
+                        "sInfoFiltered": "(duke filtruar një total të të dhënave _MAX_)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Kerko:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Bgarkim...",
+                        "oPaginate": {
+                            "sFirst": "E para",
+                            "sLast": "E fundit",
+                            "sNext": "Pas",
+                            "sPrevious": "Para"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Rendit nga A tek Z",
+                            "sSortDescending": ": Rendit nga Z tek A"
+                        }
+                    }
+                });
+            });
+    </script>
+}
+
 

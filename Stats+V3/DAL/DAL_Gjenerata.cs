@@ -32,6 +32,8 @@ namespace Stats_V3.DAL
                         gjenerata.Klasa= int.Parse(rdr["Klasa"].ToString());
                         gjenerata.Paralelja = int.Parse(rdr["Paralelja"].ToString());
                        gjenerata.ShkollaId= int.Parse(rdr["ShkollaId"].ToString());
+                        gjenerata.NrFemra = int.Parse(rdr["NrNxenesveFemra"].ToString());
+                        gjenerata.NrMeshkuj = int.Parse(rdr["NrNxenesveMeshkuj"].ToString());
                         gjenerata.VitiShkollore = new VitiShkollore();
                         gjenerata.VitiShkollore.VitiShkollor = rdr["VitiShkollor"].ToString();
                         gjenerata.VitiShkollore.Id = int.Parse(rdr["VitiId"].ToString());
@@ -55,7 +57,7 @@ namespace Stats_V3.DAL
             }
         }
 
-        public static List<Gjenerata> ListGjenerata()
+        public static List<Gjenerata> List()
         {
             var LstGJ = new List<Gjenerata>();
             var conn = DBHelper.GetConnection();
@@ -74,6 +76,8 @@ namespace Stats_V3.DAL
                     gjenerata.Klasa = int.Parse(rdr["Klasa"].ToString());
                     gjenerata.Paralelja = int.Parse(rdr["Paralelja"].ToString());
                     gjenerata.ShkollaId = int.Parse(rdr["ShkollaId"].ToString());
+                    gjenerata.NrFemra = int.Parse(rdr["NrNxenesveFemra"].ToString());
+                    gjenerata.NrMeshkuj = int.Parse(rdr["NrNxenesveMeshkuj"].ToString());
                     gjenerata.VitiShkollore = new VitiShkollore();
                     gjenerata.VitiShkollore.VitiShkollor = rdr["VitiShkollor"].ToString();
                     gjenerata.VitiShkollore.Id = int.Parse(rdr["VitiId"].ToString());
@@ -91,5 +95,42 @@ namespace Stats_V3.DAL
                 conn.Close();
             }
         }
+
+        #region Create
+        public static bool Create(Gjenerata gjenerata)
+        {
+            var conn = DBHelper.GetConnection();
+
+            try
+            {
+                var cmd = new SqlCommand("usp_Gjenerata_Insert", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@prmKlasa", gjenerata.Klasa);
+                cmd.Parameters.AddWithValue("@prmParalelja", gjenerata.Paralelja);
+                cmd.Parameters.AddWithValue("@prmVitiShkolloreId", gjenerata.VitiShkolloreId);
+                cmd.Parameters.AddWithValue("@prmNrFemra", gjenerata.NrFemra);
+                cmd.Parameters.AddWithValue("@prmNrMeshkuj", gjenerata.NrMeshkuj);
+                cmd.Parameters.AddWithValue("@prmShkollaId", 1/*gjenerata.ShkollaId*/);
+
+
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+        }
+        #endregion
+
     }
 }

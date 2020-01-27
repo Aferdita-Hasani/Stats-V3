@@ -9,7 +9,7 @@ namespace Stats_V3.DAL
 {
     public class DAL_Formulari
     {
-        public static bool Create(Formulari formulari)
+        public static int Create(Formulari formulari)
         {
             var conn = DBHelper.GetConnection();
 
@@ -22,13 +22,16 @@ namespace Stats_V3.DAL
                 cmd.Parameters.AddWithValue("@prmGjysmevjetoriId", formulari.GjysmevjetoriId);
                 cmd.Parameters.AddWithValue("@prmMungesaMeArsye", formulari.MungesaMeArsye);
                 cmd.Parameters.AddWithValue("@prmMungesaPaArsye", formulari.MungesaPaArsye);
+              
+                cmd.Parameters.Add("@prmId", SqlDbType.Int).Direction = ParameterDirection.Output;
 
 
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
 
-                return true;
+             
+                return Convert.ToInt32(cmd.Parameters["@prmId"].Value);
             }
             catch (Exception)
             {

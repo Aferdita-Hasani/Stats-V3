@@ -43,7 +43,7 @@ namespace Stats_V3.DAL
         #endregion
 
         #region Full info by Formular Id
-        public static List<SuksesiLendor> List()
+        public static List<SuksesiLendor> List( int? id)
         {
             var LstL = new List<SuksesiLendor>();
             var conn = DBHelper.GetConnection();
@@ -52,22 +52,22 @@ namespace Stats_V3.DAL
 
             try
             {
+                cmd.Parameters.AddWithValue("@FormulariId", id);
                 conn.Open();
 
                 var rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    //var lenda = new Lenda();
-                    //lenda.Emertimi = rdr["Emertimi"].ToString();
-                    //lenda.Id = int.Parse(rdr["Id"].ToString());
-                    //lenda.Klasa = rdr["Klasa"].ToString();
-                    var suksesiLendor = new SuksesiLendor();
+                   // @FormulariId
+                     var suksesiLendor = new SuksesiLendor();
                     suksesiLendor.Id = int.Parse(rdr["SuksesiLendorId"].ToString());
 
                     suksesiLendor.FormulariDetajetId = int.Parse(rdr["Id"].ToString());
                     suksesiLendor.FormulariDetajet = new FormulariDetajet();
                     suksesiLendor.FormulariDetajet.OretEMbajtura = int.Parse(rdr["OretEMbajtura"].ToString());
                     suksesiLendor.FormulariDetajet.OretEPlanifikuara = int.Parse(rdr["OretEPlanifikuara"].ToString());
+                    suksesiLendor.NrNxenesveFemra= int.Parse(rdr["NrNxenesveFemra"].ToString());
+                    suksesiLendor.NrNxenesveMeshkuj = int.Parse(rdr["NrNxenesveMeshkuj"].ToString());
 
                     suksesiLendor.Lenda = new Lenda();
                     suksesiLendor.Lenda.Emertimi = rdr["LendaEmri"].ToString();

@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 using Stats_V3;
@@ -18,11 +19,11 @@ namespace Stats_V3.Controllers
         // GET: Formulari
         public ActionResult Index()
         {
-            //var formularis = db.Formularis.Include(f => f.Gjenerata).Include(f => f.Gjysmevjetori).Include(f => f.Shkolla);
             var formulari = DAL.DAL_Formulari.ListFormular();
             
             return View(formulari.ToList());
         }
+      
 
         // GET: Formulari/Details/5
         public ActionResult Details(int? id)
@@ -31,7 +32,12 @@ namespace Stats_V3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Formulari formulari = DAL.DAL_Formulari.Read(id);
+            FullFormularViewModel formulari = new FullFormularViewModel();
+            Formulari f = DAL.DAL_Formulari.Read(id);
+            formulari.MungesaMeArsye = f.MungesaMeArsye;
+            formulari.MungesaPaArsye = f.MungesaPaArsye;
+            
+            formulari.suksesiLendor= DAL.DAL_SuksesiLendor.List(id);
             if (formulari == null)
             {
                 return HttpNotFound();
@@ -42,12 +48,13 @@ namespace Stats_V3.Controllers
         // GET: Formulari/Create
         public ActionResult Create()
         {
-            var model = new FullFormularViewModel();
-            model.formulari = new Formulari();
-            model.formulari.ListaGjenerata= new SelectList(DAL.DAL_Gjenerata.ListGjenerata(), "Id", "FullInfo");
-            model.formulari.ListaGjysemvjetori = new SelectList(DAL.DAL_Gjysmevjetori.List(), "Id", "Gjysmevjetori1");
+            FullFormularViewModel model = new FullFormularViewModel();
+           
+            model.ListaGjenerata= new SelectList(DAL.DAL_Gjenerata.List(), "Id", "FullInfo");
+            model.ListaGjysemvjetori = new SelectList(DAL.DAL_Gjysmevjetori.List(), "Id", "FullInfo");
            model.lenda= new SelectList(DAL.DAL_Lenda.List(), "Id", "Emertimi");
             model.suksesi = new SelectList(DAL.DAL_Suksesi.List(), "Id", "Emertimi");
+        
             return View(model);
         }
 
@@ -56,18 +63,27 @@ namespace Stats_V3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Formulari formulari)
+        public ActionResult Create(FullFormularViewModel formulari)
         {
             if (ModelState.IsValid)
             {
-                DAL.DAL_Formulari.Create(formulari);
+               
+
+
+                int id =DAL.DAL_Formulari.Create(formulari);
+              formulari.formulariDetajet=  FormulariDetajetFromJson(formulari.formulariDetajetJson, id, formulari.suksesiLendorJson);
+
+                foreach (var item in formulari.formulariDetajet)
+                {
+                    DAL.DAL_FormulariDetaje.Create(item);
+                }
                 return RedirectToAction("Index");
             }
 
             var model = new FullFormularViewModel();
-            model.formulari = new Formulari();
-            model.formulari.ListaGjenerata = new SelectList(DAL.DAL_Gjenerata.ListGjenerata(), "Id", "FullInfo");
-            model.formulari.ListaGjysemvjetori = new SelectList(DAL.DAL_Gjysmevjetori.List(), "Id", "Gjysmevjetori1");
+           
+            model.ListaGjenerata = new SelectList(DAL.DAL_Gjenerata.List(), "Id", "FullInfo");
+            model.ListaGjysemvjetori = new SelectList(DAL.DAL_Gjysmevjetori.List(), "Id", "Gjysmevjetori1");
             model.lenda = new SelectList(DAL.DAL_Lenda.List(), "Id", "Emertimi");
             model.suksesi = new SelectList(DAL.DAL_Suksesi.List(), "Id", "Emertimi");
             return View(model);
@@ -144,5 +160,58 @@ namespace Stats_V3.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public List<SuksesiLendor> SuksesiLendorFromJson(string json)
+        {
+            var rows = json.Split(';');
+            List<SuksesiLendor> suksesiLendor = new List<SuksesiLendor>(); 
+          
+            if (rows !=null)
+            {
+                for (int i = 0; i < rows.Length-1; i++)
+                {
+                    var recordSplitd = rows[i].Split(',');
+                    SuksesiLendor temp = new SuksesiLendor() { 
+                        
+                        LendaId=int.Parse(recordSplitd[0]),
+                        SuksesiId= int.Parse(recordSplitd[1]),
+                        NrNxenesveFemra= int.Parse(recordSplitd[2]),
+                        NrNxenesveMeshkuj= int.Parse(recordSplitd[3])
+                    };
+                    suksesiLendor.Add(temp);
+                }
+            }
+            return suksesiLendor;
+        }
+        public List<FormulariDetajet> FormulariDetajetFromJson(string detajetJson, int formulariId,string suksesiJson)
+        {
+            var rows = detajetJson.Split(';');
+            List<FormulariDetajet> detajet = new List<FormulariDetajet>();
+            if (rows != null)
+            {
+                for (int i = 0; i < rows.Length - 1; i++)
+                {
+                    var recordSplitd = rows[i].Split(',');
+                    FormulariDetajet temp = new FormulariDetajet()
+                    {
+                        FormulariId= formulariId,
+                        OretEMbajtura = int.Parse(recordSplitd[2]),
+                        OretEPlanifikuara = int.Parse(recordSplitd[1]),
+                     
+                    };
+                    foreach(SuksesiLendor suksesi in SuksesiLendorFromJson(suksesiJson))
+                    {
+                        if(int.Parse(recordSplitd[0]) == suksesi.LendaId)
+                        {
+                           
+                            temp.SuksesiLendors.Add(suksesi);
+                        }
+                    }
+                    detajet.Add(temp);
+                }
+            }
+            return detajet;
+        }
     }
+   
 }

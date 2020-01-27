@@ -4,57 +4,136 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Formularet</h2>
+<br />
+<ol class="breadcrumb">
+
+    <li class="breadcrumb-item active">Formulari</li>
+</ol>
 
 <p>
-    @Html.ActionLink("Shto", "Create")
+    @Html.ActionLink("Shto", "Create", "Formulari", null, new { @class = "btn btn-dark" })
 </p>
-<table class="table">
-    <tr>
 
-        <th>
-            Gjenerata
-            @*@Html.DisplayNameFor(model => model.Gjenerata.Id)*@
-        </th>
-        <th>
-            Gjysmevjetori
-            @*@Html.DisplayNameFor(model => model.Gjysmevjetori.Id)*@
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MungesaMeArsye)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MungesaPaArsye)
-        </th>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
 
-        <th></th>
-    </tr>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="formularet" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
 
-@foreach (var item in Model) {
-<tr>
+                            <th>
+                                Gjenerata
+                            </th>
+                            <th>
+                                Gjysmevjetori
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MungesaMeArsye)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MungesaPaArsye)
+                            </th>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.Gjenerata.FullInfo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Gjysmevjetori.Id)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.MungesaMeArsye)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.MungesaPaArsye)
-    </td>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
 
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            <th>
+                                Gjenerata
+                            </th>
+                            <th>
+                                Gjysmevjetori
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MungesaMeArsye)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MungesaPaArsye)
+                            </th>
 
-        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            <th></th>
+                        </tr>
+                    </tfoot>
 
-        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
 
-    </td>
-</tr>
-}
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Gjenerata.FullInfo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Gjysmevjetori.FullInfo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MungesaMeArsye)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MungesaPaArsye)
+                                </td>
 
-</table>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+    @section Scripts{
+
+     
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+    
+                $("#formularet").DataTable({
+                    "dom": '<"pull-left"f><"pull-right"l>tip',                    
+                    "language": {
+                        "sProcessing": "Duke u procesuar",
+                        "sLengthMenu": "Shfaqni shënimet _MENU_",
+                        "sZeroRecords": "Nuk u gjetën rezultate",
+                        "sEmptyTable": "Nuk ka të dhëna në dispozicion në këtë tabelë",
+                        "sInfo": "Shfaqja e të dhënave nga _START_ në _END_ të një totalit të të dhënave _TOTAL_",
+                        "sInfoEmpty": "Duke shfaqur shënimet nga 0 në 0 nga gjithsej 0 shënime",
+                        "sInfoFiltered": "(duke filtruar një total të të dhënave _MAX_)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Kerko:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Bgarkim...",
+                        "oPaginate": {
+                            "sFirst": "E para",
+                            "sLast": "E fundit",
+                            "sNext": "Pas",
+                            "sPrevious": "Para"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Rendit nga A tek Z",
+                            "sSortDescending": ": Rendit nga Z tek A"
+                        }
+                    }
+                });
+            });
+        </script>
+    }

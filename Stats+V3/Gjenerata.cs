@@ -11,7 +11,8 @@ namespace Stats_V3
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Gjenerata
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,7 +28,7 @@ namespace Stats_V3
         {
             get
             {
-                return Klasa + "/" + Paralelja;
+                return "Klasa "+Klasa + "/" + Paralelja;
             }
         }
         public Nullable<int> VitiShkolloreId { get; set; }
@@ -37,5 +38,9 @@ namespace Stats_V3
         public virtual ICollection<Formulari> Formularis { get; set; }
         public virtual Shkolla Shkolla { get; set; }
         public virtual VitiShkollore VitiShkollore { get; set; }
+        public int NrFemra { get;  set; }
+        public int NrMeshkuj { get;  set; }
+
+        public SelectList ListaVitiShkollor { get; set; }
     }
 }

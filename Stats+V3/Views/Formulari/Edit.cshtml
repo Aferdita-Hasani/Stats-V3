@@ -4,13 +4,19 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<br />
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="~/Home/Index">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Gjysmevjetori</li>
+</ol>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Formulari</h4>
         <hr />
