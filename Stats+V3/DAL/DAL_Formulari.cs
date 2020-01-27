@@ -9,6 +9,7 @@ namespace Stats_V3.DAL
 {
     public class DAL_Formulari
     {
+        #region Create
         public static int Create(Formulari formulari)
         {
             var conn = DBHelper.GetConnection();
@@ -43,8 +44,9 @@ namespace Stats_V3.DAL
             }
 
         }
+        #endregion
 
-
+        #region Read
         public static Formulari Read(int? id)
         {
             var formulari = new Formulari();
@@ -86,6 +88,9 @@ namespace Stats_V3.DAL
                 conn.Close();
             }
         }
+        #endregion
+
+        #region List
         public static List<Formulari> ListFormular()
         {
             var LstGJ = new List<Formulari>();
@@ -124,5 +129,6 @@ namespace Stats_V3.DAL
                 conn.Close();
             }
         }
+        #endregion
     }
 }
